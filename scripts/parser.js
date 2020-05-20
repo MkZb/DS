@@ -29,12 +29,12 @@ async function get_match_info(match_id, key = "8F248B8D4DE625716426DD2A183961CD"
     })
 }
 
-//returns true if object with "match_id" is not in database
+//returns true if object with "match_id" is not in database.
 async function search_for_match(collection, match_id) {
     return await collection.find({"match_id": match_id}).count() === 0;
 }
 
-//parses "amount" matches, starting from "start" and adds them to database
+//parses "amount" matches, starting from "start" and adds them to database. Also changes heroes statistics at database while parsing.
 async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961CD") {
     let url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistoryBySequenceNum/v1/?key=" + key + "&start_at_match_seq_num=" + start + "&matches_requested=" + amount
     fetch(url, {
@@ -48,6 +48,7 @@ async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961C
             let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
             let db = client.db("main");
             const collection = db.collection("matches");
+            const collection2 = db.collection("heroes")
 
             for (match in data.result.matches) {
                 if (data.result.matches[match].game_mode === 22 && data.result.matches[match].human_players === 10 && data.result.matches[match].duration >= 900) {
@@ -55,10 +56,29 @@ async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961C
                         const res = await search_for_match(collection, data.result.matches[match].match_id)
                         if (res) {
                             await collection.insertOne(data.result.matches[match])
+                            for (player in data.result.matches[match].players) {
+                                let query1 = {};
+                                let hero = data.result.matches[match].players[player].hero_id.toString()
+                                query1[hero] = {$exists: true}
+                                let total_games = hero.toString() + ".total_games"
+                                let query2 = {};
+                                query2[total_games] = 1
+                                let query3 = {};
+                                let total_won = hero.toString() + ".total_won"
+                                query3[total_won] = 1
+                                await collection2.updateOne(query1, {
+                                    $inc: query2
+                                }, {"upsert": true})
+                                if ((data.result.matches[match].radiant_win === true && player < 5) || (data.result.matches[match].radiant_win === false) && player >= 5) {
+                                    await collection2.updateOne(query1, {
+                                        $inc: query3
+                                    }, {"upsert": true})
+                                }
+                            }
                         }
 
                     } finally {
-                        console.log("Match added to DB.")
+                        console.log("Match analysed.");
                     }
                 }
             }
