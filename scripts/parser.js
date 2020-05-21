@@ -108,7 +108,7 @@ const sleep = (milliseconds) => {
 //getting 100 matches from everyday since 05.01
 
 /*
-*/
+
 get_matches(4517784253, 100)
     .then(async function () {
         sleep(500)
@@ -147,6 +147,6 @@ get_matches(4517784253, 100)
 }).then(async function () {
     await get_matches(4532587637, 100)
 })
-/*
+
 */
 

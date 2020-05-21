@@ -9,8 +9,8 @@ async function getHeroInfo(id) {
     let query1 = {};
     query1[id.toString()] = {$exists: true};
 
-    return await collection.find(query1);
-
+    const result = await collection.find(query1);
+    return [result, client];
 }
 
 async function getMatchInfo(match_id) {
@@ -21,7 +21,8 @@ async function getMatchInfo(match_id) {
     let query1 = {};
     query1["match_id"] = match_id;
 
-    return await collection.find(query1);
+    const result = await collection.find(query1)
+    return [result, client];
 
 }
 
@@ -33,43 +34,68 @@ async function getPlayerMatches(account_id) {
     let query1 = {};
     query1[account_id.toString()] = {$exists: true};
 
-    return await collection.find(query1);
+    const result = await collection.find(query1)
+    return [result, client];
 
 }
 
 //example how to work with result, that come from DB (make sure to fill database before running)
-function examples() {
+async function examples() {
     let hero_id = 2
-    getHeroInfo(hero_id).then(function (result) {
-        if (result.count() === 0) {
+    getHeroInfo(hero_id).then(async function (result) {
+        let client = result[1];
+        let data = result[0];
+        const count = await data.count();
+        if (count === 0) {
             console.log("No matches for specified id in database.")
         } else {
-            result.forEach(function (doc) {
+            data.forEach(function (doc) {
                 console.log(doc[hero_id]);
             })
         }
+        return client;
+    }).then(function (client) {
+        client.close();
+    }).catch(function (err) {
+        console.log(err);
     })
 
-    let match_id = 5407012875
-    getMatchInfo(match_id).then(function (result) {
-        if (result.count() === 0) {
+    let match_id = 54070128750
+    getMatchInfo(match_id).then(async function (result) {
+        let client = await result[1];
+        let data = await result[0];
+        const count = await data.count();
+        if (count === 0) {
             console.log("No matches for specified id in database.")
         } else {
-            result.forEach(function (doc) {
+            data.forEach(function (doc) {
                 console.log(doc);
             })
         }
+        return client;
+    }).then(async function (client) {
+        client.close();
+    }).catch(function (err) {
+        console.log(err);
     })
 
     let account_id = 369907450
-    getPlayerMatches(account_id).then(function (result) {
-        if (result.count() === 0) {
+    getPlayerMatches(account_id).then(async function (result) {
+        let client = result[1];
+        let data = result[0]
+        const count = await data.count();
+        if (count === 0) {
             console.log("No matches for specified id in database.")
         } else {
-            result.forEach(function (doc) {
+            data.forEach(function (doc) {
                 console.log(doc[account_id]);
             })
         }
+        return client;
+    }).then(async function (client) {
+        client.close();
+    }).catch(function (err) {
+        console.log(err);
     })
 }
 
