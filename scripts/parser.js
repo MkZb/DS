@@ -29,7 +29,8 @@ async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961C
             let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
             const db = client.db("main");
             const collection = db.collection("matches");
-            const collection2 = db.collection("heroes")
+            const collection2 = db.collection("heroes");
+            const collection3 = db.collection("players");
 
             for (let match in data.result.matches) {
                 if (data.result.matches[match].game_mode === 22 && data.result.matches[match].human_players === 10 && data.result.matches[match].duration >= 900) {
@@ -50,6 +51,10 @@ async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961C
                             query2[hero.toString() + ".total_games"] = 1
                             let query3 = {};
                             query3[hero.toString() + ".total_won"] = 1
+                            let query4 = {};
+                            query4[data.result.matches[match].players[player].account_id.toString()] = {$exists: true};
+                            let query5 = {};
+                            query5[data.result.matches[match].players[player].account_id.toString()] = data.result.matches[match].match_id
 
                             let date = new Date((data.result.matches[match].start_time) * 1000)
                             query2[hero.toString() + ".total_games_by_day." + date.getFullYear().toString() + "." + date.getMonth().toString() + "." + date.getDate().toString()] = 1;
@@ -68,6 +73,10 @@ async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961C
 
                             await collection2.updateOne(query1, {
                                 $inc: query2
+                            }, {"upsert": true})
+
+                            await collection3.updateOne(query4, {
+                                $push: query5
                             }, {"upsert": true})
 
                             if ((data.result.matches[match].radiant_win === true && player < 5) || (data.result.matches[match].radiant_win === false) && player >= 5) {
@@ -98,7 +107,9 @@ const sleep = (milliseconds) => {
 
 //getting 100 matches from everyday since 05.01
 
-/*get_matches(4517784253, 100)
+/*
+*/
+get_matches(4517784253, 100)
     .then(async function () {
         sleep(500)
     }).then(async function () {
@@ -136,6 +147,6 @@ const sleep = (milliseconds) => {
 }).then(async function () {
     await get_matches(4532587637, 100)
 })
-
+/*
 */
 
