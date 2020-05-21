@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="stylesheets/main.css">
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+	<title>DotaFinder</title>
+</head>
+<body>
+
+<header class="header">
+		<div class="upinfo">
+				<a class="nav" href="MainPage.html">
+					<div class="logo"></div>
+				</a>
+			<navigation>
+				<a class="nav" href="finder.html">Finder</a>
+				<a class="nav" href="graphics.html"> Graphics</a>
+				<a class="nav" href="proplayers.html"> Pro Players</a>
+				<a class="nav" href="#"> Authors</a>
+			</navigation>
+		</div>
+</header>
+
+<div class="firstlide">
+	<p class="input1">Enter player name: </p>
+	<p class="input1"><input id="getname" value /></p>
+	<button class="input1" onclick="FindPlayer()">Search</button>
+	<p>OR</p>
+	<p class="input1">Enter match ID: </p>
+	<p class="input1"><input id="getnum" value /></p>
+	<button class="input1" onclick="FindMatch()">Search</button>
+	<div class="result">
+		<p style="color: red" id="head"></p>
+		<p style="color:blue" id="Sraka"></p>
+	</div>
+</div>
+<script type="text/javascript" src="javascripts/finder.js"></script>
+</body>
+</html>
