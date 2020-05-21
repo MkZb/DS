@@ -1,0 +1,46 @@
+.herogrid {
+	height: 141.1vh;
+	width: 68.5%;
+	margin: auto;
+	margin-top: 20px;
+}
+
+.heroicon {
+	display: inline-block;
+	width: 11.8%;
+   	padding-right: 120px;
+   	border: 1px solid white;
+   	margin-bottom: 4px;
+}
+
+.heroname {
+	padding-top: 41px;
+	width: 20px;
+	font-size: 16px;
+	color: #FFF;
+	-webkit-text-stroke-width: 0.3px;
+    -webkit-text-stroke-color: black;
+}
+
+.heroinfo {
+	margin-top: 200px;
+}
+
+.aver {
+	line-height: 2;
+  	color: #87CEEB;
+  	padding: 20px;
+}
+
+#graph{
+	 top: 50px;
+     width : 1200px;
+     height: 800px;
+     margin: 5px auto;
+}
+
+.res{
+	color: #fff;
+	float: right;
+	padding-right: 60%;
+}
