@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="stylesheets/heroes.css">
+	<link rel="stylesheet" href="stylesheets/main.css">
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+	<title>Heroes</title>
+</head>
+<body>
+
+<header class="header">
+		<div class="upinfo">
+				<a class="nav" href="MainPage.html">
+					<div class="logo"></div>
+				</a>
+			<navigation>
+				<a class="nav" href="finder.html">Finder</a>
+				<a class="nav" href="graphics.html"> Graphics</a>
+				<a class="nav" href="proplayers.html"> Pro Players</a>
+				<a class="nav" href="#"> Authors</a>
+			</navigation>
+		</div>
+</header>
+
+<div style="background: transparent">
+<p style="text-align: center; color:blue; font-size: 70px" id="test"></p>
+<div id="graph"> </div>
+
+<div class="heroinfo">
+	<p style="text-align: center; color:#FFA07A; font-size: 30px">The average performance of the hero, statistics for over 100,000 matches:</p>
+	<p id="averwr" class="res">Result</p>
+	<p class="aver">Average win rate: </p>
+	<p id="averkl" class="res">Result</p>
+	<p class="aver">Average kills per game: </p>
+	<p id="avergpm" class="res">Result</p>
+	<p class="aver">Average GPM*:</p>
+	<p id="averxpm" class="res">Result</p>
+	<p class="aver">Average XPM**:</p>
+	<p id="averkda" class="res">Result</p>
+	<p class="aver">Average KDA***:</p>
+	<p id="avercr" class="res">Result</p>
+	<p class="aver">Average creeps killed per game: </p>
+	<p style="margin-top: 150px">* — Gold per minute<br/>** — Expirience per minute<br/>*** — (Kills+Assists)/Deaths </p>
+</div>
+
+<script type="text/javascript" src="javascripts/graphbuilder.js"></script>
+    <script type="text/javascript">
+      (function () {
+
+        var
+          container = document.getElementById('graph'),
+          data, graph;
+          data = [];
+          graphar = [[],[],[],[],[]];
+          j = 0
+          for (let i = 0; i < 5; i++){
+			graphar[i][0] = sessionStorage.getItem(j+1)
+			graphar[i][1] = sessionStorage.getItem(j+2)
+			j+=2
+		  }
+          data.push(graphar);
+          graph = Flotr.draw(container, data, {title: "WIN RATE", subtitle: "heroname", colors: ['#1e1c1c'], 
+           		grid:{backgroundColor: "#FFF"}, yaxis:{tickDecimals: 0, min: 40, max: 60, title: "%", color:'#FFF'}, 
+           		xaxis:{tickDecimals: 0, title:"Data", color:"#FFF"}
+          });
+      })();
+    </script>
+
+<script>
+	document.getElementById("test").innerHTML = sessionStorage.getItem(11)
+	document.getElementById("averwr").innerHTML = sessionStorage.getItem(12)
+	document.getElementById("averkl").innerHTML = sessionStorage.getItem(13)
+	document.getElementById("avergpm").innerHTML = sessionStorage.getItem(14)
+	document.getElementById("averxpm").innerHTML = sessionStorage.getItem(15)
+	document.getElementById("averkda").innerHTML = sessionStorage.getItem(16)
+	document.getElementById("avercr").innerHTML = sessionStorage.getItem(17)
+</script>
+</div>
+</body>
