@@ -1,3 +1,9 @@
+/**
+ *Get hero info from server by id
+ *
+ *@constructor
+ *@param {Number} id - ID of the hero from DotaAPI
+ */  
 function Info(id){
 	var winrate = [[20, 48], [21, 48.9], [22, 51.5], [23, 60], [24, 48.3]]
 	var averwr = Math.floor((winrate[0][1] + winrate[1][1] + winrate[2][1] + winrate[3][1] + winrate[4][1])*20)/100
