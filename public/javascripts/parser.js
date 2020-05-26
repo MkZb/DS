@@ -16,7 +16,14 @@ async function search_for_match(collection, match_id) {
 }
 
 
-//parses "amount" matches, starting from "start" and adds them to database. Also changes heroes statistics at database while parsing.
+/**
+ *Parses "amount" matches and adds them to database. Also changes heroes statistics at database while parsing
+ *
+ *@constructor
+ *@param {Number} start - Parsing match start number
+ *@param {Number} amount - Amount of matches for parsing
+ *@param {String} key - DotaApi Access Key
+ */  
 async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961CD") {
     let url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistoryBySequenceNum/v1/?key=" + key + "&start_at_match_seq_num=" + start + "&matches_requested=" + amount
     fetch(url, {
