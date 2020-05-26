@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
+    "docbuild": "documentation build public/javascripts/** -f html -o documentation/stats&documentation build scripts/parser.js -f html -o documentation/parser"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
