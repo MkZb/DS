@@ -7,10 +7,12 @@
     "start": "node ./bin/www",
     "docbuild": "documentation build public/javascripts/** -f html -o documentation/stats&documentation build scripts/parser.js -f html -o documentation/parser&documentation build bin/www.js -f html -o documentation/web_processing"
   },
-  "jest":{
-    "collectCoverage":true,
-    "coverageReporters": ["lcov"],
-    "coverageDirectory":"./testresults/"
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "lcov"
+    ],
+    "coverageDirectory": "./testresults/"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -18,6 +20,7 @@
     "documentation": "^13.0.0",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "jQuery": "^1.7.4",
     "mongodb": "^3.5.7",
     "morgan": "~1.9.1",
     "node": "^14.2.0",

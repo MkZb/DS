@@ -5,8 +5,8 @@ let MongoClient = require("mongodb").MongoClient;
  *
  *@constructor
  *@param {Number} id - ID of the hero from DotaAPI
- *@return {Array} List of info about hero
- */  
+ *@return {Array} List of client, which we have to close and info about hero
+ */
 async function getHeroInfo(id) {
     let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
     const db = client.db("main");
@@ -15,7 +15,7 @@ async function getHeroInfo(id) {
     let query1 = {};
     query1[id.toString()] = {$exists: true};
 
-    const result = await collection.find(query1);
+    const result = await collection.find(query1, {"_id": 0});
     return [result, client];
 }
 
@@ -23,18 +23,19 @@ async function getHeroInfo(id) {
  *Get match info from database by id
  *
  *@constructor
- *@param {Number} match_id - ID of the match from DOTA
- *@return {Array} List of info about match
- */ 
+ *@param {Number} match_id - ID of the match
+ *@return {Array} List of client, which we have to close and info about match
+ */
+
 async function getMatchInfo(match_id) {
     let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
     const db = client.db("main");
     const collection = db.collection("matches");
 
     let query1 = {};
-    query1["match_id"] = match_id;
+    query1[match_id.toString()] = {$exists: true};
 
-    const result = await collection.find(query1)
+    const result = await collection.find(query1, {"_id": 0});
     return [result, client];
 
 }
@@ -44,8 +45,8 @@ async function getMatchInfo(match_id) {
  *
  *@constructor
  *@param {Number} account_id - ID of the player from DOTA
- *@return {Array} List of info about player matches
- */ 
+ *@return {Array} List of client, which we have to close and info about player matches
+ */
 async function getPlayerMatches(account_id) {
     let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
     const db = client.db("main");
@@ -53,8 +54,8 @@ async function getPlayerMatches(account_id) {
 
     let query1 = {};
     query1[account_id.toString()] = {$exists: true};
-
-    const result = await collection.find(query1)
+    console.log(query1)
+    const result = await collection.find(query1, {"_id": 0})
     return [result, client];
 
 }
@@ -80,7 +81,7 @@ async function examples() {
         console.log(err);
     })
 
-    let match_id = 54070128750
+    let match_id = 5389021436
     getMatchInfo(match_id).then(async function (result) {
         let client = await result[1];
         let data = await result[0];
@@ -119,4 +120,9 @@ async function examples() {
     })
 }
 
-examples();
+module.exports = {
+    getPlayerMatches,
+    getMatchInfo,
+    getHeroInfo
+};
+

@@ -6,7 +6,9 @@ async function get_match_info(match_id, key = "8F248B8D4DE625716426DD2A183961CD"
 
 //returns true if object with "match_id" is not in database.
 async function search_for_match(collection, match_id) {
-    const res = await collection.find({"match_id": match_id}).count()
+    let query1 = {}
+    query1[match_id.toString()] = {$exists: true}
+    const res = await collection.find(query1).count()
     if (res === 0) {
         return true;
     } else {
@@ -23,7 +25,7 @@ async function search_for_match(collection, match_id) {
  *@param {Number} start - Parsing match start number
  *@param {Number} amount - Amount of matches for parsing
  *@param {String} key - DotaApi Access Key
- */  
+ */
 async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961CD") {
     let url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistoryBySequenceNum/v1/?key=" + key + "&start_at_match_seq_num=" + start + "&matches_requested=" + amount
     fetch(url, {
@@ -45,7 +47,9 @@ async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961C
                     const res = await search_for_match(collection, data.result.matches[match].match_id)
                     if (res) {
                         try {
-                            const res2 = await collection.insertOne(data.result.matches[match])
+                            let query1 = {};
+                            query1[data.result.matches[match].match_id.toString()] = data.result.matches[match];
+                            const res2 = await collection.insertOne(query1);
                         } catch (e) {
                             console.log(e);
                         }
@@ -116,9 +120,8 @@ const sleep = (milliseconds) => {
 //getting 100 matches from everyday since 05.01
 
 
-
 get_matches(4517784253, 100)
-/*
+
     .then(async function () {
         sleep(500)
     }).then(async function () {
@@ -156,6 +159,6 @@ get_matches(4517784253, 100)
 }).then(async function () {
     await get_matches(4532587637, 100)
 })
-
+/*
 */
 
