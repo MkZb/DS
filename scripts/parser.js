@@ -37,7 +37,7 @@ async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961C
         response.json().then(async function (data) {
             //requested data handler
             let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
-            const db = client.db("main");
+            const db = client.db("heroku_fqqg0zld");
             const collection = db.collection("matches");
             const collection2 = db.collection("heroes");
             const collection3 = db.collection("players");

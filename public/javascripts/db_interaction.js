@@ -9,7 +9,7 @@ let MongoClient = require("mongodb").MongoClient;
  */
 async function getHeroInfo(id) {
     let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
-    const db = client.db("main");
+    const db = client.db("heroku_fqqg0zld");
     const collection = db.collection("heroes");
 
     let query1 = {};
@@ -29,7 +29,7 @@ async function getHeroInfo(id) {
 
 async function getMatchInfo(match_id) {
     let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
-    const db = client.db("main");
+    const db = client.db("heroku_fqqg0zld");
     const collection = db.collection("matches");
 
     let query1 = {};
@@ -49,7 +49,7 @@ async function getMatchInfo(match_id) {
  */
 async function getPlayerMatches(account_id) {
     let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
-    const db = client.db("main");
+    const db = client.db("heroku_fqqg0zld");
     const collection = db.collection("players");
 
     let query1 = {};
