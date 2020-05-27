@@ -1,8 +1,9 @@
 {
   "name": "dotastats",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
+    "parse": "node ./scripts/parser.js",
     "test": "jest",
     "start": "node ./bin/www",
     "docbuild": "documentation build public/javascripts/** -f html -o documentation/stats&documentation build scripts/parser.js -f html -o documentation/parser&documentation build bin/www.js -f html -o documentation/web_processing"
