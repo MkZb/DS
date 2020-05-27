@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "test": "jest",
     "start": "node ./bin/www",
-    "docbuild": "documentation build public/javascripts/** -f html -o documentation/stats&documentation build scripts/parser.js -f html -o documentation/parser",
-    "test": "jest"
+    "docbuild": "documentation build public/javascripts/** -f html -o documentation/stats&documentation build scripts/parser.js -f html -o documentation/parser&documentation build bin/www.js -f html -o documentation/web_processing"
+  },
+  "jest":{
+    "collectCoverage":true,
+    "coverageReporters": ["lcov"],
+    "coverageDirectory":"./testresults/"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -20,7 +25,6 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
-    "jest": "^26.0.1",
-    "jest-html-reporter": "^3.1.3"
+    "jest": "^26.0.1"
   }
 }
