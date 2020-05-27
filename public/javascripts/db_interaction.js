@@ -8,7 +8,7 @@ let MongoClient = require("mongodb").MongoClient;
  *@return {Array} List of client, which we have to close and info about hero
  */
 async function getHeroInfo(id) {
-    let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
+    let client = await MongoClient.connect("mongodb://admin:administrator123@ds151817.mlab.com:51817/heroku_fqqg0zld", {useNewUrlParser: true})
     const db = client.db("main");
     const collection = db.collection("heroes");
 
@@ -28,7 +28,7 @@ async function getHeroInfo(id) {
  */
 
 async function getMatchInfo(match_id) {
-    let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
+    let client = await MongoClient.connect("mongodb://admin:administrator123@ds151817.mlab.com:51817/heroku_fqqg0zld", {useNewUrlParser: true})
     const db = client.db("main");
     const collection = db.collection("matches");
 
@@ -48,7 +48,7 @@ async function getMatchInfo(match_id) {
  *@return {Array} List of client, which we have to close and info about player matches
  */
 async function getPlayerMatches(account_id) {
-    let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
+    let client = await MongoClient.connect("mongodb://admin:administrator123@ds151817.mlab.com:51817/heroku_fqqg0zld", {useNewUrlParser: true})
     const db = client.db("main");
     const collection = db.collection("players");
 

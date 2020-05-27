@@ -1,9 +1,6 @@
 let fetch = require("node-fetch");
 let MongoClient = require("mongodb").MongoClient;
 
-async function get_match_info(match_id, key = "8F248B8D4DE625716426DD2A183961CD") {
-}
-
 //returns true if object with "match_id" is not in database.
 async function search_for_match(collection, match_id) {
     let query1 = {}
@@ -36,7 +33,7 @@ async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961C
         }
         response.json().then(async function (data) {
             //requested data handler
-            let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true})
+            let client = await MongoClient.connect("mongodb://admin:administrator123@ds151817.mlab.com:51817/heroku_fqqg0zld", {useNewUrlParser: true})
             const db = client.db("main");
             const collection = db.collection("matches");
             const collection2 = db.collection("heroes");

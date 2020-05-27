@@ -2,8 +2,6 @@ var express = require('express');
 var path = require('path');
 var router = express.Router();
 var database = require('../public/javascripts/db_interaction')
-let MongoClient = require("mongodb").MongoClient;
-const {getMatchInfo} = require('../public/javascripts/db_interaction')
 
 
 /* GET finder page. */
