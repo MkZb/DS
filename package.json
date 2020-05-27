@@ -10,7 +10,8 @@
   "jest":{
     "collectCoverage":true,
     "coverageReporters": ["lcov"],
-    "coverageDirectory":"./testresults/"
+    "coverageDirectory":"./testresults/",
+    "reporters":["./node_modules/jest-html-reporter"]
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
