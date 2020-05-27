@@ -13,7 +13,10 @@
     "coverageReporters": [
       "lcov"
     ],
-    "coverageDirectory": "./testresults/"
+    "coverageDirectory": "./testresults/",
+    "reporters": [
+      "./node_modules/jest-html-reporter"
+    ]
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -29,6 +32,7 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "jest-html-reporter": "^3.1.3"
   }
 }
