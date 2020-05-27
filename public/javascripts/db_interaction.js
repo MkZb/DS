@@ -126,3 +126,6 @@ module.exports = {
     getHeroInfo
 };
 
+exports.getHeroInfo = getHeroInfo
+exports.getMatchInfo = getMatchInfo
+exports.getPlayerMatches = getPlayerMatches
