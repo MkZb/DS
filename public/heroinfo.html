@@ -52,6 +52,7 @@
     <script type="text/javascript" src="javascripts/graphbuilder.js"></script>
     <script type="text/javascript">
         (function () {
+            console.log(sessionStorage[11])
             let post_data = {
                 id: sessionStorage[11],
                 type: 'hero'
@@ -71,19 +72,28 @@
                         data2, graph;
                     data2 = [];
                     graphar = [[], [], [], [], []];
-                    j = 0
-                    for (let i = 0; i < 5; i++) {
-                        graphar[i][0] = sessionStorage.getItem(j + 1)
-                        graphar[i][1] = sessionStorage.getItem(j + 2)
-                        j += 2
+
+                    function addDays(date, days) {
+                        const copy = new Date(Number(date))
+                        copy.setDate(date.getDate() + days)
+                        return copy
                     }
+
+                    let date = new Date(1588290798000)
+
+                    for (let i = 0; i < 5; i++) {
+                        graphar[i][0] = date.getDate()
+                        graphar[i][1] = Math.round(data['games_won_by_day'][date.getFullYear().toString()][date.getMonth().toString()][date.getDate().toString()] *10000 / data['total_games_by_day'][date.getFullYear().toString()][date.getMonth().toString()][date.getDate().toString()])/100
+                        date = addDays(date, 1)
+                    }
+
                     data2.push(graphar);
                     graph = Flotr.draw(container, data2, {
                         title: "WIN RATE",
                         subtitle: "heroname",
                         colors: ['#1e1c1c'],
                         grid: {backgroundColor: "#FFF"},
-                        yaxis: {tickDecimals: 0, min: 40, max: 60, title: "%", color: '#FFF'},
+                        yaxis: {tickDecimals: 0, min: 0, max: 100, title: "%", color: '#FFF'},
                         xaxis: {tickDecimals: 0, title: "Data", color: "#FFF"}
                     });
                 })
