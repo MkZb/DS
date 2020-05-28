@@ -118,7 +118,7 @@ const sleep = (milliseconds) => {
 
 
 const getFromSeqNum = seq => {
-    return sleep(1000).then(async function () {
+    return sleep(6000).then(async function () {
         await get_matches(seq, 100)
     })
 }
@@ -130,6 +130,7 @@ const forLoop = async _ => {
         let current_seq = seq_list[i];
         for (let index = 0; index < 300; index++) {
             const wait = await getFromSeqNum(current_seq);
+            const waitagain = await sleep(100)
             current_seq = current_seq + 100;
         }
     }
