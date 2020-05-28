@@ -64,7 +64,7 @@
                 id: sessionStorage[11],
                 type: 'hero'
             }
-            $.post('https://dotastats123.herokuapp.com/heroinfo.html',   // request url
+            $.post('https://localhost:3000/heroinfo.html',   // request url
                 post_data,
                 function (data, status, jqXHR) {// success callback
                     document.getElementById("test").innerHTML = sessionStorage.getItem(18)

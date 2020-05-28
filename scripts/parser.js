@@ -29,12 +29,13 @@ async function get_matches(start, amount, key = "8F248B8D4DE625716426DD2A183961C
         method: "GET"
     }).then(function (response) {
         if (response.status !== 200) {
+            console.log(response);
             return console.log("Status error");
         }
         response.json().then(async function (data) {
             //requested data handler
-            let client = await MongoClient.connect("mongodb://admin:administrator123@ds151817.mlab.com:51817/heroku_fqqg0zld", {useNewUrlParser: true})
-            const db = client.db("heroku_fqqg0zld");
+            let client = await MongoClient.connect("mongodb://localhost:27017/", {useNewUrlParser: true, useUnifiedTopology: true})
+            const db = client.db("main");
             const collection = db.collection("matches");
             const collection2 = db.collection("heroes");
             const collection3 = db.collection("players");
@@ -118,7 +119,7 @@ const sleep = (milliseconds) => {
 
 
 const getFromSeqNum = seq => {
-    return sleep(1000).then(async function () {
+    return sleep(6000).then(async function () {
         await get_matches(seq, 100)
     })
 }
@@ -130,6 +131,7 @@ const forLoop = async _ => {
         let current_seq = seq_list[i];
         for (let index = 0; index < 300; index++) {
             const wait = await getFromSeqNum(current_seq);
+            const waitagain = await sleep(100)
             current_seq = current_seq + 100;
         }
     }

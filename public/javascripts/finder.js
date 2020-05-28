@@ -10,7 +10,7 @@ $(function () {
             id: document.getElementById('getaccountid').value,
             type: 'player'
         }
-        $.post('https://dotastats123.herokuapp.com/finder',   // request url
+        $.post('https://localhost:3000/finder',   // request url
             post_data,
             function (data, status, jqXHR) {// success callback
                 if (data !== '0') {
@@ -36,7 +36,7 @@ $(function () {
             id: document.getElementById('getmatchid').value,
             type: 'game'
         }
-        $.post('https://dotastats123.herokuapp.com/finder',   // request url
+        $.post('https://localhost:3000/finder',   // request url
             post_data,
             function (data, status, jqXHR) {// success callback
                 if (data !== '0') {
