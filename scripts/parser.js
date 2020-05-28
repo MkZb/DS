@@ -117,6 +117,28 @@ const sleep = (milliseconds) => {
 //getting 100 matches from everyday since 05.01
 
 
+const getFromSeqNum = seq => {
+    return sleep(1000).then(async function () {
+        await new get_matches(seq, 100)
+    })
+}
+
+const forLoop = async _ => {
+    console.log('Start')
+    let seq_list = [4517784253, 4520829776, 4522470662, 4524315818, 4525667807, 4526150293, 4528784049, 4529139055, 4530671765, 4532587637]
+    for (let i=0; i<seq_list.length; i++) {
+        let current_seq = seq_list[i];
+        for (let index = 0; index < 300; index++) {
+            const wait = await getFromSeqNum(current_seq);
+            current_seq = current_seq + 100;
+        }
+    }
+
+}
+
+forLoop().then(r => console.log("Done."))
+
+/*
 get_matches(4517784253, 100)
     .then(async function () {
         sleep(500)
@@ -155,6 +177,6 @@ get_matches(4517784253, 100)
 }).then(async function () {
     await get_matches(4532587637, 100)
 })
-/*
+
 */
 
