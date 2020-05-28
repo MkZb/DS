@@ -119,7 +119,7 @@ const sleep = (milliseconds) => {
 
 const getFromSeqNum = seq => {
     return sleep(1000).then(async function () {
-        await new get_matches(seq, 100)
+        await get_matches(seq, 100)
     })
 }
 
