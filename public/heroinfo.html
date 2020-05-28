@@ -60,11 +60,11 @@
                 post_data,
                 function (data, status, jqXHR) {// success callback
                     document.getElementById("test").innerHTML = sessionStorage.getItem(11)
-                    document.getElementById("averwr").innerHTML = (Math.round(data['total_won'] * 10000 / data['total_games'])/100).toString() + "%"
-                    document.getElementById("averkl").innerHTML = (Math.round(data['total_kills']*10 / data['total_games'])/10).toString()
+                    document.getElementById("averwr").innerHTML = (Math.round(data['total_won'] * 10000 / data['total_games']) / 100).toString() + "%"
+                    document.getElementById("averkl").innerHTML = (Math.round(data['total_kills'] * 10 / data['total_games']) / 10).toString()
                     document.getElementById("avergpm").innerHTML = (Math.round(data['total_gpm'] / data['total_games'])).toString()
                     document.getElementById("averxpm").innerHTML = (Math.round(data['total_xpm'] / data['total_games'])).toString()
-                    document.getElementById("averkda").innerHTML = (Math.round(data['total_kda']*10 / data['total_games'])/10).toString()
+                    document.getElementById("averkda").innerHTML = (Math.round(data['total_kda'] * 10 / data['total_games']) / 10).toString()
                     document.getElementById("avercr").innerHTML = (Math.round(data['total_last_hits'] / data['total_games'])).toString()
                     var
                         container = document.getElementById('graph'),
