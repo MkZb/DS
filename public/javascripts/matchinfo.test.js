@@ -1,13 +1,7 @@
 const info = require('./db_interaction.js');
 
-test('HeroId', () => {
-	info.getMatchInfo(3).then(async function (result){
-    		let client = await result[1]
-    		let data = await result[0]
-    		data.forEach(function (doc) {
-		expect(data["3"]).toBe(0)
-		})
-    		return client
-    	}).then(function (cl){
-    return cl.close()}).catch(function(e){console.log(e)})
+test('MatchId', async () => {
+    const data = await info.getMatchInfo(5392744437);
+    data[1].close();
+    expect(data[0][0]['5392744437']['match_id']).toBe(5392744437);
 });

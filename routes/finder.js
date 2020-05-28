@@ -19,7 +19,7 @@ router.post('/', async function (req, res, next) {
         database.getPlayerMatches(id).then(async function (result) {
             let client = result[1];
             let data = result[0];
-            const count = await data.count();
+            const count = await data.length;
             if (count === 0) {
                 console.log("No player matches found in database.")
                 res.send('0');
@@ -38,7 +38,7 @@ router.post('/', async function (req, res, next) {
         database.getMatchInfo(id).then(async function (result) {
             let client = result[1];
             let data = result[0];
-            const count = await data.count();
+            const count = await data.length;
             if (count === 0) {
                 console.log("No matches found in database.")
                 res.send('0');

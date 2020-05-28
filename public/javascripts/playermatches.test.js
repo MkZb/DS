@@ -1,13 +1,7 @@
 const info = require('./db_interaction.js');
 
-test('HeroId', () => {
-	info.getPlayerMatches("Kaka333").then(async function (result){
-    		let client = await result[1]
-    		let data = await result[0]
-    		data.forEach(function (doc) {
-		expect(data["3"]).toBe(0)
-		})
-    		return client
-    	}).then(function (cl){
-    return cl.close()}).catch(function(e){console.log(e)})
+test('PlayerId', async () => {
+    const data = await info.getPlayerMatches(133399822);
+    data[1].close();
+    expect(data[0][0]['133399822']).toMatchObject([5389009009]);
 });
