@@ -5,8 +5,8 @@ let MongoClient = require("mongodb").MongoClient;
 async function search_for_match(collection, match_id) {
     let query1 = {}
     query1[match_id.toString()] = {$exists: true}
-    const res = await collection.find(query1).count()
-    if (res === 0) {
+    const res = await collection.find(query1).toArray()
+    if (res.length === 0) {
         return true;
     } else {
         console.log(match_id + " already in database.")
