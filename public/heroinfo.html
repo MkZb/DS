@@ -28,11 +28,18 @@
 
 <div style="background: transparent">
     <p style="text-align: center; color:blue; font-size: 70px" id="test"></p>
+    <div style="text-align:center">
+        <input id="hero-image" type="image" alt="" width="20%">
+    </div>
+    <script type="text/javascript">
+        var imageSrc = '/images/'+sessionStorage[11]+'.png';
+        var input = document.getElementById('hero-image');
+        input.src = imageSrc;
+    </script>
     <div id="graph"> </div>
 
     <div class="heroinfo">
-        <p style="text-align: center; color:#FFA07A; font-size: 30px">The average performance of the hero, statistics
-            for over 100,000 matches:</p>
+        <p style="text-align: center; color:#FFA07A; font-size: 30px">The average performance of the hero:</p>
         <p id="averwr" class="res">Result</p>
         <p class="aver">Average win rate: </p>
         <p id="averkl" class="res">Result</p>
@@ -60,7 +67,7 @@
             $.post('http://localhost:3000/heroinfo.html',   // request url
                 post_data,
                 function (data, status, jqXHR) {// success callback
-                    document.getElementById("test").innerHTML = sessionStorage.getItem(11)
+                    document.getElementById("test").innerHTML = sessionStorage.getItem(18)
                     document.getElementById("averwr").innerHTML = (Math.round(data['total_won'] * 10000 / data['total_games']) / 100).toString() + "%"
                     document.getElementById("averkl").innerHTML = (Math.round(data['total_kills'] * 10 / data['total_games']) / 10).toString()
                     document.getElementById("avergpm").innerHTML = (Math.round(data['total_gpm'] / data['total_games'])).toString()
@@ -71,7 +78,7 @@
                         container = document.getElementById('graph'),
                         data2, graph;
                     data2 = [];
-                    graphar = [[], [], [], [], []];
+                    graphar = [[], [], [], [], [], [], [], [], [], []];
 
                     function addDays(date, days) {
                         const copy = new Date(Number(date))
@@ -81,16 +88,16 @@
 
                     let date = new Date(1588290798000)
 
-                    for (let i = 0; i < 5; i++) {
+                    for (let i = 0; i < 10; i++) {
                         graphar[i][0] = date.getDate()
-                        graphar[i][1] = Math.round(data['games_won_by_day'][date.getFullYear().toString()][date.getMonth().toString()][date.getDate().toString()] *10000 / data['total_games_by_day'][date.getFullYear().toString()][date.getMonth().toString()][date.getDate().toString()])/100
+                        graphar[i][1] = Math.round(data['games_won_by_day'][date.getFullYear().toString()][date.getMonth().toString()][date.getDate().toString()] * 10000 / data['total_games_by_day'][date.getFullYear().toString()][date.getMonth().toString()][date.getDate().toString()]) / 100
                         date = addDays(date, 1)
                     }
 
                     data2.push(graphar);
                     graph = Flotr.draw(container, data2, {
                         title: "WIN RATE",
-                        subtitle: "heroname",
+                        subtitle: sessionStorage[18],
                         colors: ['#1e1c1c'],
                         grid: {backgroundColor: "#FFF"},
                         yaxis: {tickDecimals: 0, min: 0, max: 100, title: "%", color: '#FFF'},
